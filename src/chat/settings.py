@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-
 from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -65,7 +64,7 @@ ROOT_URLCONF = "chat.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "theme/templates/theme/"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -139,6 +138,13 @@ AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
+
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"
+ACCOUNT_CHANGE_EMAIL = True
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_LOGOUT_REDIRECT_URL = "/accounts/login/"
+LOGIN_REDIRECT_URL = "/"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 

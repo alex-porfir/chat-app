@@ -16,6 +16,7 @@
         <title>{% block title %}{% endblock title %} | CHAT</title>
     </head>
     <body class="bg-primary-subtle">
+        {% include "theme/partials/navbar.html" %}
         <div class="container my-3">
             {% if messages %}
                 <div class="messages">

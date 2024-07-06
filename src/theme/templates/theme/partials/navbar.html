@@ -1,0 +1,13 @@
+{% load account %}
+
+<nav class="navbar bg-body-tertiary mb-4">
+    <div class="container-fluid">
+    <a class="navbar-brand" href="#">Chat App</a>
+    {% if user.is_authenticated %}
+        <form method="post" action="{% url 'account_logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger">Logout</button>
+        </form>
+    {% endif %}
+    </div>
+</nav>
