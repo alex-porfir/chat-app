@@ -1,0 +1,18 @@
+{% extends "theme/base.html" %}
+
+{% block content %}
+
+    <div class="card text-center mx-auto shadow-lg">
+        <div class="card-header fw-bold">
+            Customer Service
+        </div>
+        <div class="card-body">
+            <p class="card-title">You can now talk to one of our customer service employees by clicking the button bellow</p>
+            <hr>
+            <div class="d-flex justify-content-around">
+                <a role=button href="{% url 'conversation-initialize' %}" class="btn btn-primary">Start Chat</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

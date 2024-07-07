@@ -1,0 +1,23 @@
+{% extends 'theme/base.html' %}
+
+{% block content %}
+    <div class="row d-flex justify-content-center">
+        {% for conversation in user.customer_support_conversations.all %}
+            <div class="col-12 col-md-6">
+                <div class="card">
+                    <div class="card-body d-flex justify-content-between">
+                        <h6 class="mt-1">
+                            Customer: {{ conversation.customer }} (
+                            {% if conversation.new %} NEW {% else %} DONE {% endif %})
+                        </h6>
+                        {% if conversation.new %}
+                            <a role="button" class="btn btn-sm btn-primary" href="{% url 'chat' conversation.slug %}">Join <i class="fa-solid fa-arrow-right-to-bracket"></i></a>
+                        {% else %}
+                            <a role="button" class="btn btn-sm btn-primary" href="#">View <i class="fa-solid fa-eye"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}
