@@ -4,8 +4,18 @@ from app.views import chat
 
 
 urlpatterns = [
-    path("chat/", TemplateView.as_view(template_name="app/chat.html"), name="index"),
-    path("room/<str:slug>/", chat.index, name="chat"),
-    path("create/", chat.room_create, name="room-create"),
-    path("join/", chat.room_join, name="room-join"),
+    path(
+        "customer_service/",
+        chat.customer_service_view,
+        name="customer-service",
+    ),
+    path(
+        "connect/", TemplateView.as_view(template_name="app/connect.html"), name="index"
+    ),
+    path("chat/<str:slug>/", chat.chat, name="chat"),
+    path(
+        "conversation/initialize/",
+        chat.conversation_initialize,
+        name="conversation-initialize",
+    ),
 ]

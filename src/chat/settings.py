@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "theme",
     "app",
     "channels",
+    "django_extensions",
 ]
 
 MIDDLEWARE = [

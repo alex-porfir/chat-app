@@ -7,5 +7,7 @@ class HomePageView(RedirectView):
 
     def get_redirect_url(self, *args, **kwargs):
         if self.request.user.is_authenticated:
-            return "chat"
+            if self.request.user.groups.filter(name="Customer Service").exists():
+                return "customer_service/"
+            return "connect/"
         return "accounts/login/"

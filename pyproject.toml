@@ -12,6 +12,7 @@ django-allauth = "^0.63.3"
 ruff = "^0.5.1"
 django-htmx = "^1.18.0"
 channels = {extras = ["daphne"], version = "^4.1.0"}
+django-extensions = "^3.2.3"
 
 
 [build-system]

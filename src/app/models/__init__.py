@@ -1,7 +1,7 @@
 from app.models.message import Message
-from app.models.room import Room
+from app.models.conversation import Conversation
 
 __all__ = [
-    Room.__name__,
+    Conversation.__name__,
     Message.__name__,
 ]
