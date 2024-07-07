@@ -9,11 +9,16 @@
 
         <!-- HTMX -->
         <script src="https://unpkg.com/htmx.org@2.0.0" integrity="sha384-wS5l5IKJBvK6sPTKa2WZ1js3d947pvWXbPJ1OmWfEuxLgeHcEbjUUA5i9V5ZkpCw" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/htmx-ext-ws@2.0.0/ws.js"></script>
 
         <!-- Fontawesome icons -->
         <script src="https://kit.fontawesome.com/69ecb67fe2.js" crossorigin="anonymous"></script>
 
         <title>{% block title %}{% endblock title %} | CHAT</title>
+
+        <style>
+            {% block style %}{% endblock style %}
+        </style>
     </head>
     <body class="bg-primary-subtle">
         {% include "theme/partials/navbar.html" %}

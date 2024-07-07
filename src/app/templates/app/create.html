@@ -1,0 +1,22 @@
+{% extends "theme/base.html" %}
+
+{% block content %}
+
+    <div class="card">
+        <div class="card-header text-center">
+            Create a room
+        </div>
+        <div class="card-body">
+            <form class="login" method="POST" action="{% url 'room-create' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="id_room" class="form-label">Room name</label>
+                    <input type="text" name="room_name" class="form-control" id="id_room" required>
+                </div>
+
+                <button class="btn btn-primary float-end" type="submit">Okay</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock content %}
