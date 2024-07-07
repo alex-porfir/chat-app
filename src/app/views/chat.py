@@ -28,3 +28,6 @@ def conversation_initialize(request):
         return redirect(reverse("index"))
 
     return redirect(reverse("chat", kwargs={"slug": conversation_obj.slug}))
+
+
+print("Remove this statement")
