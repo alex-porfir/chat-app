@@ -1,25 +1,33 @@
-import random  # noqa
-import string  # noqa
+import random
+import string
 from authentication.models import User
 from app.service import (
     create_conversation,
-    get_available_free_customer_service_employees,
+    get_available_customer_service_employees,
 )
+from app.models import Conversation
 
 
 class ConversationMaker:
     def __init__(self, user: User):
         self.user = user
 
-    def _generate_random_slug(self):
-        return str("".join(random.choices(string.ascii_letters + string.digits, k=10)))
+    def _generate_random_slug(self) -> str:
+        return str(
+            "".join(
+                random.choices(
+                    string.ascii_letters + string.digits,
+                    k=40,
+                )
+            )
+        )
 
-    def _get_random_customer_service_employee(self):
-        available_employees = get_available_free_customer_service_employees()
+    def _get_random_customer_service_employee(self) -> User | None:
+        available_employees = get_available_customer_service_employees()
 
         return random.choice(available_employees) if available_employees else None
 
-    def initialize_conversation(self):
+    def initialize_conversation(self) -> Conversation | None:
         if employee := self._get_random_customer_service_employee():
             employee_obj = User.objects.get(id=employee)
             conversation = create_conversation(

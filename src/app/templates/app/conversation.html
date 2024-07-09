@@ -4,21 +4,55 @@
 
     <div class="card" style="height: 700px;">
         <div class="card-body overflow-auto" id="scroller">
-            <div class="text-center">
-                You are connected with {% if request.user == conversation.employee %} {{ conversation.customer }} {% else %} {{ conversation.employee }} {% endif %} {{ support_employee.name }}!
+            <div class="text-center text-primary">
+                You are connected with {% if request.user.username == conversation.employee.username %} {{ conversation.customer }} {% else %} {{ conversation.employee }} {% endif %}!
             </div>
             <hr>
             <div id='messages'></div>
         </div>
         <div class="card-footer p-0 m-0">
             <div hx-ext="ws" ws-connect="/conversation/{{ conversation.slug }}/" class="m-0 p-0">
-            <form ws-send>
-                <div>
-                    <input type="text" class="form-control" name="message" id="textBar" placeholder="Start writing ...">
-                </div>
-            </form>
-        </div>
+                <form ws-send id="messageForm">
+                    <input type="text" class="form-control" name="message" id="textInput" placeholder="Start writing ..." required>
+                </form>
+            </div>
         </div>
     </div>
 
 {% endblock content %}
+
+{% block script %}
+<script>
+    const form = document.getElementById("messageForm");
+
+    form.addEventListener("submit", function(event) {
+        const input = document.getElementById("textInput");
+
+        event.preventDefault();
+
+        let messageContent = input.value;
+
+        // Allow the ws-send attribute to handle the WebSocket message send
+        // After the message is sent, clear the input field
+        setTimeout(function() {
+            input.value = "";
+        }, 10); // Slight delay to ensure message is sent before clearing
+
+        // Scroll to the bottom of the chat
+        let observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.addedNodes.length) {
+                    scrollToBottom();
+                }
+            });
+        });
+
+        observer.observe(document.getElementById("messages"), { childList: true });
+    });
+
+    function scrollToBottom() {
+        let scroller = document.getElementById("scroller");
+        scroller.scrollTop = scroller.scrollHeight;
+    }
+</script>
+{% endblock script %}

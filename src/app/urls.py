@@ -1,5 +1,6 @@
 from django.urls import path
 from django.views.generic import TemplateView
+
 from app.views import chat
 
 
@@ -10,12 +11,23 @@ urlpatterns = [
         name="customer-service",
     ),
     path(
-        "connect/", TemplateView.as_view(template_name="app/connect.html"), name="index"
+        "connect/",
+        TemplateView.as_view(template_name="app/connect.html"),
+        name="index",
     ),
-    path("chat/<str:slug>/", chat.chat, name="chat"),
+    path(
+        "chat/<str:slug>/",
+        chat.chat,
+        name="chat",
+    ),
     path(
         "conversation/initialize/",
         chat.conversation_initialize,
         name="conversation-initialize",
+    ),
+    path(
+        "conversation/<int:pk>/detail/",
+        chat.conversation_detail,
+        name="conversation-detail",
     ),
 ]

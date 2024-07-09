@@ -1,9 +1,9 @@
 {% extends 'theme/base.html' %}
 
 {% block content %}
-    <div class="row d-flex justify-content-center">
+    <div class="row row-cols-1 row-cols-lg-3 g-2 g-lg-3">
         {% for conversation in user.customer_support_conversations.all %}
-            <div class="col-12 col-md-6">
+            <div class="col">
                 <div class="card">
                     <div class="card-body d-flex justify-content-between">
                         <h6 class="mt-1">
@@ -13,9 +13,15 @@
                         {% if conversation.new %}
                             <a role="button" class="btn btn-sm btn-primary" href="{% url 'chat' conversation.slug %}">Join <i class="fa-solid fa-arrow-right-to-bracket"></i></a>
                         {% else %}
-                            <a role="button" class="btn btn-sm btn-primary" href="#">View <i class="fa-solid fa-eye"></i></a>
+                            <a role="button" class="btn btn-sm btn-primary" href="{% url 'conversation-detail' conversation.pk %}">View <i class="fa-solid fa-eye"></i></a>
                         {% endif %}
                     </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="card mx-auto bg-warning-subtle">
+                <div class="card-body text-center">
+                    No conversations yet!
                 </div>
             </div>
         {% endfor %}

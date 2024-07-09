@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.shortcuts import reverse, redirect
-from authentication.models import User  # noqa
+
 from app.domain.conversation import ConversationMaker
 from app.models import Conversation
 
@@ -14,12 +14,14 @@ def customer_service_view(request):
 
 @login_required
 def chat(request, slug):
-    conversation_obj = Conversation.objects.get(slug=slug)
-    return render(request, "app/conversation.html", {"conversation": conversation_obj})
+    conversation = Conversation.objects.get(slug=slug)
+    return render(request, "app/conversation.html", {"conversation": conversation})
 
 
 @login_required
 def conversation_initialize(request):
+    if request.user.groups.filter(name="Customer Service").exists():
+        return redirect(reverse("customer-service"))
     conversation_obj = ConversationMaker(request.user).initialize_conversation()
     if conversation_obj is None:
         messages.error(
@@ -30,4 +32,11 @@ def conversation_initialize(request):
     return redirect(reverse("chat", kwargs={"slug": conversation_obj.slug}))
 
 
-print("Remove this statement")
+@login_required
+def conversation_detail(request, pk):
+    conversation = Conversation.objects.get(id=pk)
+    return render(
+        request,
+        "app/conversation_detail.html",
+        context={"conversation": conversation},
+    )

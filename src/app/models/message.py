@@ -5,6 +5,7 @@ class Message(models.Model):
     conversation = models.ForeignKey(
         to="app.Conversation",
         on_delete=models.CASCADE,
+        related_name="messages",
     )
     user = models.ForeignKey(
         to="authentication.User",
