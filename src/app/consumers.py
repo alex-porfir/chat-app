@@ -19,7 +19,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.accept()
 
     async def disconnect(self, close_code):
-        await self.close_conversation(self.conversation_name, self.user)
+        await self.close_conversation(self.conversation_name)
 
         await self.channel_layer.group_discard(
             self.conversation_group_name, self.channel_name
@@ -48,7 +48,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def chat_message(self, event):
         message = event["message"]
         username = event["username"]
-        current_user = self.user.username
 
         message_html = f"<div hx-swap-oob='beforeend:#messages'><div class='border-start border-primary border-3 bg-secondary-subtle rounded mb-3 mx-3'><p class='m-0 text-msg'><div class='ps-2 fw-bold'>{username}</div><div class='ps-2 text-muted'>{message}</div></div></div>"
 
@@ -67,7 +66,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         Message.objects.create(conversation=conversation, user=user, message=message)
 
     @sync_to_async
-    def close_conversation(self, slug, user):
+    def close_conversation(self, slug):
         conversation = Conversation.objects.get(slug=slug)
         conversation.new = False
         conversation.save()

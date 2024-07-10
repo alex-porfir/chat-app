@@ -24,11 +24,11 @@ def get_available_customer_service_employees() -> QuerySet[int]:
     return customer_service_employees.difference(unavailable_customer_service_employees)
 
 
-def create_conversation(customer, employee, slug):
+def create_conversation(customer_id, employee_id, slug):
     conversation = Conversation.objects.create(
         slug=slug,
-        employee=employee,
-        customer=customer,
+        employee_id=employee_id,
+        customer_id=customer_id,
     )
     conversation.save()
 

@@ -28,11 +28,10 @@ class ConversationMaker:
         return random.choice(available_employees) if available_employees else None
 
     def initialize_conversation(self) -> Conversation | None:
-        if employee := self._get_random_customer_service_employee():
-            employee_obj = User.objects.get(id=employee)
+        if employee_id := self._get_random_customer_service_employee():
             conversation = create_conversation(
-                customer=self.user,
-                employee=employee_obj,
+                customer_id=self.user.id,
+                employee_id=employee_id,
                 slug=self._generate_random_slug(),
             )
 
