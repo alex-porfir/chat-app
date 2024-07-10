@@ -12,7 +12,7 @@ automatically be connected with a random customer service employee.
 
 If you don't want to use Poetry, just create your virtual environment however you want.
 
-* Run `src/./manage.py migrate` to setup the sqlite3 database. This will also create the Customer Service group required for
+* Run `src/./manage.py migrate` to set up the sqlite3 database. This will also create the Customer Service group required for
 the chat
 
 ## Setup Users for testing
